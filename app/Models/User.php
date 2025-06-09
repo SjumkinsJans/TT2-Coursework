@@ -18,7 +18,8 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'username',
+        'role',
         'email',
         'password',
     ];
@@ -45,4 +46,21 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function user_profiles() {
+        return $this->hasOne(UserProfile::class,'user_id');
+    }
+
+    public function comic() {
+        return $this->hasMany(Comic::class,'author_id');
+    }
+
+    public function isAdmin() {
+        return $this->role === 'admin';
+    }
+
+    public function isUser() {
+        return $this->role === 'user';
+    }
+
 }
