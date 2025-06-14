@@ -11,14 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_profiles', function (Blueprint $table) {
-           
-            //FK + PK
-            $table->foreignId('user_id')->constrained()->primary()->OnDelete('cascade');
-
-            $table->string('profile_picture')->default('profile_pictures/default_picture.png');
-            $table->text('description')->nullable();
+        Schema::create('comic_images', function (Blueprint $table) {
+            $table->id();
+            $table->integer('page');
+            $table->string('image');
             $table->timestamps();
+
+            //FK
+            $table->unsignedBigInteger('comic_id');
+            $table->foreign('comic_id')->references('id')->on('comics')->OnDelete('cascade');
+
         });
     }
 
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_profiles');
+        Schema::dropIfExists('comic_images');
     }
 };

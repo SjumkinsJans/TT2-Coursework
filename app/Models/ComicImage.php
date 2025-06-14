@@ -4,14 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ComicGenre extends Model
+class ComicImage extends Model
 {
-    
     protected $fillable = [
-        'comic_genre',
+        'comic_id',
+        'page',
+        'image',
     ];
 
     public function comic() {
-        return $this->hasMany(Comic::class,'comic_genre_id');
+        return $this->belongsTo(Comic::class,'comic_id');
     }
 }

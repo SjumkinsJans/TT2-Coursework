@@ -15,6 +15,11 @@ class UserProfileSeeder extends Seeder
     {
         UserProfile::create([
             'user_id' => 1,
+            'description' => 'Your admin',
+        ]);
+
+        UserProfile::create([
+            'user_id' => 2,
             'description' => 'A chill guy who travels around the galaxy',
         ]);
     }

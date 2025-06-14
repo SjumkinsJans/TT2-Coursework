@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_profiles', function (Blueprint $table) {
-           
-            //FK + PK
-            $table->foreignId('user_id')->constrained()->primary()->OnDelete('cascade');
-
-            $table->string('profile_picture')->default('profile_pictures/default_picture.png');
-            $table->text('description')->nullable();
+        Schema::create('comments', function (Blueprint $table) {
+            $table->id();
             $table->timestamps();
         });
     }
@@ -27,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_profiles');
+        Schema::dropIfExists('comments');
     }
 };

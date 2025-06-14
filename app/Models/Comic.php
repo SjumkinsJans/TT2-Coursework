@@ -8,6 +8,7 @@ class Comic extends Model
 {
     protected $fillable = [
         'author_id',
+        'cover_image',
         'title',
         'description',
         'comic_genre_id',
@@ -18,7 +19,11 @@ class Comic extends Model
     }
 
     public function comic_genre() {
-        return $this->belongsTo(ChallengeType::class,'comic_genre_id');
+        return $this->belongsTo(ComicGenre::class,'comic_genre_id');
+    }
+
+    public function comic_image() {
+        return $this->hasMany(ComicImage::class,'comic_id');
     }
 }
 

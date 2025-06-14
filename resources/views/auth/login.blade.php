@@ -3,7 +3,7 @@
         <x-slot name="title">
             Register
         </x-slot>
-        <div class="d-flex flex-wrap justify-content-center border border-dark" style="width:1280px;">
+        <div class="d-flex flex-wrap justify-content-center border border-dark w-100">
             <form action="{{ route('login')}}" method="POST">
                 @csrf
                 <div>

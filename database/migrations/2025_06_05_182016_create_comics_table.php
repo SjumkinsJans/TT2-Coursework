@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('comics', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('cover_image')->default('cover_images/default_cover.png');  
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
+            $table->timestamps();
 
             //FK's
             $table->unsignedBigInteger('author_id');
