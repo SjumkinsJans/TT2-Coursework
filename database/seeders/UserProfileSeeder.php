@@ -22,5 +22,23 @@ class UserProfileSeeder extends Seeder
             'user_id' => 2,
             'description' => 'A chill guy who travels around the galaxy',
         ]);
+
+        UserProfile::create([
+            'user_id' => 3,
+            'description' => 'I\'m a Goose !',
+        ]);
+
+        UserProfile::create([
+            'user_id' => 4,
+            'description' => 'I\'m a Moose !',
+        ]);
+
+        UserProfile::create([
+            'user_id' => 5,
+        ]);
+
+        UserProfile::create([
+            'user_id' => 6,
+        ]);
     }
 }

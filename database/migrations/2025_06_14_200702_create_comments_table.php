@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
+            $table->text('comment');
+            // FK's
+            $table->unsignedBigInteger('comic_id');
+            $table->foreign('comic_id')->references('id')->on('comics')->OnDelete('cascade');
+
+            $table->foreignId('user_id')->constrained()->OnDelete('cascade');
+
             $table->timestamps();
         });
     }

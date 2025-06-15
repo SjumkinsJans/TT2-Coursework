@@ -4,7 +4,7 @@
     {{ $user->username }} profile
   </x-slot>
 
-  <form method="POST" action="{{ route('user_profile.update',$user_profile)}}" enctype="multipart/form-data" onsubmit="return confirm('Are you sure you want to update this account ?');">
+  <form method="POST" class="m-0" action="{{ route('user_profile.update',$user_profile)}}" enctype="multipart/form-data" onsubmit="return confirm('Are you sure you want to update this account ?');">
   @csrf 
   @method('PUT')
 
@@ -28,13 +28,12 @@
   </div>
 
  </form>
-
     <div>  
       @can('delete',$user_profile)
-        <form method="POST" action="{{ route('user_profile.destroy',$user_profile)}}" onsubmit="return confirm('Are you sure you want to delete this account ?');">
-        @csrf
-        @method('DELETE')
-        <button type="submit" class="btn btn-danger w-25">Delete Account</button>
+        <form method="POST" class="m-0" action="{{ route('user_profile.destroy',$user_profile)}}" onsubmit="return confirm('Are you sure you want to delete this account ?');">
+          @csrf
+          @method('DELETE')
+          <button type="submit" class="btn btn-danger w-25">Delete Account</button>
         </form>
       @endcan
     </div>

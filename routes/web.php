@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\ComicController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\AuthController;
 
 
@@ -24,3 +25,5 @@ Route::post('/register',[AuthController::class,'register'])->name('register');
 });
 
 Route::middleware('auth')->post('/logout',[AuthController::class,'logout'])->name('logout');
+Route::middleware('auth')->post('/comic/{id}/comment', [CommentController::class, 'store'])->name('comic.comment');
+Route::middleware('auth')->delete('/comment/{id}', [CommentController::class, 'destroy'])->name('comment.destroy');

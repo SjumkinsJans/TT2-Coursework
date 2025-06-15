@@ -25,6 +25,10 @@ class Comic extends Model
     public function comic_image() {
         return $this->hasMany(ComicImage::class,'comic_id');
     }
+
+    public function comment() {
+        return $this->hasMany(Comment::class,'comic_id');
+    }
 }
 
 

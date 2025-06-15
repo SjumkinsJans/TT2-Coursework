@@ -2,7 +2,9 @@
 
 namespace App\Policies;
 
+use Illuminate\Support\Facades\Auth;
 use App\Models\Comment;
+use App\Models\Comic;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
@@ -13,7 +15,7 @@ class CommentPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,7 +23,7 @@ class CommentPolicy
      */
     public function view(User $user, Comment $comment): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -29,23 +31,25 @@ class CommentPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Comment $comment): bool
+    public function update(User $user, Comment $comment, Comic $comic): bool
     {
-        return false;
+        return ($user->id == $comment->user_id ||  ($user->isAuthor() && $comic->author_id === Auth::id()));
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Comment $comment): bool
+    public function delete(User $user,Comment $comment): bool
     {
-        return false;
+        
+        return ($user->id === $comment->user_id or 
+        ($user->isAuthor() &&  Comic::where('id',$comment->comic_id)->value('author_id') === Auth::id() ));
     }
 
     /**
@@ -62,5 +66,11 @@ class CommentPolicy
     public function forceDelete(User $user, Comment $comment): bool
     {
         return false;
+    }
+
+    public function before(User $user, string $ability) {
+        if($user->isAdmin()) {
+            return true;
+        } 
     }
 }

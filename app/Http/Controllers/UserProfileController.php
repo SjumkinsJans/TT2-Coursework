@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\UserProfile;
 use App\Models\User;
 use App\Models\Comic;
+use App\Models\ComicImage;
+use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -60,7 +62,7 @@ class UserProfileController extends Controller
     {
 
         $user_profile = UserProfile::findOrFail($id);
-        if($request->user()->cannot('edit',$user_profile)) {
+        if($request->user()->cannot('delete',$user_profile)) {
             abort(403,'You are not permited to edit this user profile');
         };
 
@@ -81,7 +83,7 @@ class UserProfileController extends Controller
 
 
         $validated = $request->validate([
-            'description' => 'string',
+            'description' => 'string|nullable',
             'profile_picture' => 'image|nullable|mimes:png,jpg,jpeg,gif|',
         ]);
 
@@ -110,6 +112,8 @@ class UserProfileController extends Controller
         if($request->user()->cannot('update',$user_profile)) {
             abort(403,'You are not permited to destroy this user profile');
         };
+
+
         
         $id = $user_profile->user_id;
         if(Auth::id() == $id) {
@@ -117,7 +121,13 @@ class UserProfileController extends Controller
             $request->session()->invalidate();
             $request->session()->regenerateToken();
         }
-
+        
+        $comments = Comment::where('user_id',$id)->delete();
+        $comics = Comic::where('author_id',$id);
+        ComicImage::whereIn('comic_id',$comics->pluck('id'))->delete();
+        Comment::whereIn('comic_id',$comics->pluck('id'))->delete();
+        $comics->delete();
+        
         $user_profile->delete();
         User::find($id)->delete();
         return redirect()->route('main.index')->with('success','Account deleted successfully');

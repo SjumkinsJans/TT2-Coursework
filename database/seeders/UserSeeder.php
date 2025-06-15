@@ -29,5 +29,36 @@ class UserSeeder extends Seeder
             'password' => bcrypt('fortheviltrum'), 
         ]);
 
+        User::create([
+            'username' => 'goose',
+            'email' => 'goose@gmail.com',
+            'email_verified_at' => NULL,
+            'role' => 'author',
+            'password' => bcrypt('qwerty'), 
+        ]);
+
+        User::create([
+            'username' => 'moose',
+            'email' => 'moose@gmail.com',
+            'email_verified_at' => NULL,
+            'role' => 'author',
+            'password' => bcrypt('qwerty'), 
+        ]);
+
+        User::create([
+            'username' => 'user1',
+            'email' => 'user1@gmail.com',
+            'email_verified_at' => NULL,
+            'role' => 'user',
+            'password' => bcrypt('qwerty'), 
+        ]);
+
+        User::create([
+            'username' => 'user2',
+            'email' => 'user2@gmail.com',
+            'email_verified_at' => NULL,
+            'role' => 'user',
+            'password' => bcrypt('qwerty'), 
+        ]);
     }
 }

@@ -55,6 +55,10 @@ class User extends Authenticatable
         return $this->hasMany(Comic::class,'author_id');
     }
 
+    public function comment() {
+        return $this->hasMany(Comment::class,'user_id');
+    }
+
     public function isAdmin() {
         return $this->role === 'admin';
     }

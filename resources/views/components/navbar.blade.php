@@ -1,14 +1,13 @@
-<div class="d-flex flex-wrap w-100">
-    <h1 class="w-25"><a href="{{ route('main.index') }}" style="text-decoration:none;">Home Page</a></h1>
-    <h1 class="w-50"><a href="{{ route('main.index') }}" style="text-decoration:none;">Search</a></h1>
-    @auth
+<div class="d-flex flex-wrap w-100 ">
+    <h1 class="w-50"><a href="{{ route('main.index') }}" style="text-decoration:none;">Home Page</a></h1>
     
-    <div class="dropdown w-25">
+    @auth 
+    <div class="d-flex dropdown w-50 justify-content-end">
      <h1>
-      <button data-bs-toggle="dropdown" aria-expanded="false" class="border-0 p-0">
+      <button data-bs-toggle="dropdown" class="border-0 p-0 bg-transparent text-primary">
        Account
       </button>
-      <ul class="dropdown-menu">
+      <ul class="dropdown-menu color-blue">
         <li><a class="dropdown-item" href="{{ route('user_profile.show', Auth::id()) }}">Your Profile</a></li>
         @can('create',\App\Models\Comic::class)
         <li><a class="dropdown-item" href="{{ route('comic.create')}}">Upload content</a></li>
@@ -24,14 +23,14 @@
        </li>
       </ul>
      </h1>
-    </div>
-    
+    </div>   
     @endauth
+
     @guest
-    <div class="dropdown w-25">
+    <div class="dropdown w-50 d-flex justify-content-end">
         <h1>
-          <button data-bs-toggle="dropdown" aria-expanded="false" class="border-0 p-0 m-0">
-          <p class="m-0">Account</p>
+          <button data-bs-toggle="dropdown" class="border-0 p-0 bg-transparent text-primary">
+          Account
           </button>
            <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="{{ route('showLogin') }}" style="text-decoration:none;">Login</a></li>
@@ -40,4 +39,5 @@
         </h1>
     </div>
     @endguest
+    
 </div>

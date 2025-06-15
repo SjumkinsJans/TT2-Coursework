@@ -19,16 +19,19 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         Schema::disableForeignKeyConstraints(); 
-        
-        User::truncate(); 
+
         UserProfile::truncate();
+        Comic::truncate();
+        ComicGenre::truncate();
+        User::truncate(); 
+
 
         
         $this->call([
             UserSeeder::class,
             UserProfileSeeder::class,
             ComicGenreSeeder::class,
-            ComicSeeder::class,
+            //ComicSeeder::class,
         ]);
         Schema::enableForeignKeyConstraints();
     }
