@@ -227,7 +227,7 @@ class ComicController extends Controller
             abort(403,'You are not permited to destroy this comic');
         };
 
-        if ($comic->comic_cover != 'cover_images/default_cover.png') {
+        if ($comic->cover_image != 'cover_images/default_cover.png') {
             Storage::disk('public')->delete($comic->cover_image);
         }
 

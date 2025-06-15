@@ -11,7 +11,7 @@
   <div class="d-flex flex-wrap justify-content-center border border-dark w-100">
     <div div class="justify-content-center w-25 h-25">
       <label for="profile_picture" class="form-label"></label>
-      <img id="profile_picture" src="{{asset('storage/'.$user_profile->profile_picture)}}" class="m-1 border border-dark rounded-circle " style="width:300;height:300px;">
+      <img id="profile_picture" src="{{asset('storage/'.$user_profile->profile_picture)}}" class="m-1 border border-dark rounded-circle " style="width:300px;height:300px;">
       <input type="file" name="profile_picture" id="image" onchange="document.getElementById('profile_picture').src = window.URL.createObjectURL(this.files[0])">
     </div>
 

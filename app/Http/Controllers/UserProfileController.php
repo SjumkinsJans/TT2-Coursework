@@ -109,12 +109,10 @@ class UserProfileController extends Controller
     public function destroy(Request $request, UserProfile $user_profile)
     {
 
-        if($request->user()->cannot('update',$user_profile)) {
+        if($request->user()->cannot('delete',$user_profile)) {
             abort(403,'You are not permited to destroy this user profile');
         };
-
-
-        
+       
         $id = $user_profile->user_id;
         if(Auth::id() == $id) {
             Auth::logout();
@@ -122,11 +120,29 @@ class UserProfileController extends Controller
             $request->session()->regenerateToken();
         }
         
-        $comments = Comment::where('user_id',$id)->delete();
-        $comics = Comic::where('author_id',$id);
-        ComicImage::whereIn('comic_id',$comics->pluck('id'))->delete();
-        Comment::whereIn('comic_id',$comics->pluck('id'))->delete();
-        $comics->delete();
+        Comment::where('user_id',$id)->delete();
+        $comics = Comic::where('author_id',$id)->get();
+        $comic_ids = $comics->pluck('id');
+        Comment::whereIn('comic_id', $comic_ids)->delete();
+        $comic_images = ComicImage::whereIn('comic_id',$comic_ids)->get();
+        foreach($comic_images as $comic_image) {
+            Storage::disk('public')->delete($comic_image->image);
+            $comic_image->delete();
+        }
+        
+
+        
+        foreach($comics as $comic) {
+            if($comic->cover_image != 'cover_images/default_cover.png') {
+                Storage::disk('public')->delete($comic->cover_image);
+            }
+        }
+        
+        $comics->each->delete();
+
+        if ($user_profile->profile_picture != 'profile_pictures/default_picture.png') {
+            Storage::disk('public')->delete($user_profile->profile_picture);
+        }
         
         $user_profile->delete();
         User::find($id)->delete();

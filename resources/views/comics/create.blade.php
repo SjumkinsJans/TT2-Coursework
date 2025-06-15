@@ -44,7 +44,7 @@
           <div class="box m-1 text-center position-relative" style="width:206px;height:300px;">
             <label class="d-block border border-dark h-100 w-100">
               <input  type="file" class="d-none" name="pages[]" accept="image/*" onchange="pageInput(event,true)">
-              <img src="" alt="" class="border border-dark w-100 h-100 d-none">
+              <img src="" alt="" class="border border-dark w-100 h-100 d-none" style="object-fit:contain;">
               <p class="text-muted d-flex align-items-center justify-content-center h-100">+ Add Page</p>
             </label>
           </div>

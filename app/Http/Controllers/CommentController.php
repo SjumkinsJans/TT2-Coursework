@@ -47,7 +47,7 @@ class CommentController extends Controller
             'comic_id' => $id,
             'comment' => $validated['comment'],
         ]);
-        return redirect()->back()->with('success','Comic uploaded successfully !');
+        return redirect()->back()->with('success','Comment uploaded successfully !');
     }
 
     /**
